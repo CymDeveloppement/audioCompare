@@ -3,11 +3,12 @@ DIRECTORY='audioCompareTestFolder'
 if [ ! -d "$DIRECTORY" ]; then
 	mkdir "$DIRECTORY"
 fi
-#rm -rf $DIRECTORY/*
-#mkdir "$DIRECTORY/origin"
-#cdparanoia -B $1 $DIRECTORY/origin/cd.wav
-#mv $DIRECTORY/origin/*.wav $DIRECTORY/origin/origin.wav
-#lame -h $DIRECTORY/origin/origin.wav $DIRECTORY/origin/origin.mp3
+rm -rf $DIRECTORY/*
+rm play.m3u
+mkdir "$DIRECTORY/origin"
+cdparanoia -B $1 $DIRECTORY/origin/cd.wav
+mv $DIRECTORY/origin/*.wav $DIRECTORY/origin/origin.wav
+lame -h $DIRECTORY/origin/origin.wav $DIRECTORY/origin/origin.mp3
 for i in `seq 1 $2`;
 do
 	result=$(( $RANDOM % 10 ))
@@ -27,4 +28,4 @@ done
 echo "La playlist est prète appuyer sur entrée lorsque vous étes pret"
 read ok
 vlc play.m3u
-#cp $DIRECTORY/origin/origin.mp3 $DIRECTORY/001
+
