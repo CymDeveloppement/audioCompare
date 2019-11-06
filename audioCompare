@@ -1,0 +1,30 @@
+#!/bin/sh
+DIRECTORY='audioCompareTestFolder'
+if [ ! -d "$DIRECTORY" ]; then
+	mkdir "$DIRECTORY"
+fi
+#rm -rf $DIRECTORY/*
+#mkdir "$DIRECTORY/origin"
+#cdparanoia -B $1 $DIRECTORY/origin/cd.wav
+#mv $DIRECTORY/origin/*.wav $DIRECTORY/origin/origin.wav
+#lame -h $DIRECTORY/origin/origin.wav $DIRECTORY/origin/origin.mp3
+for i in `seq 1 $2`;
+do
+	result=$(( $RANDOM % 10 ))
+	if [ $result -gt 4 ]
+	then
+		cp $DIRECTORY/origin/origin.mp3 $DIRECTORY/$i
+		echo "$i:MP3" >> $DIRECTORY/origin/result.txt
+		echo $DIRECTORY/$i >> play.m3u
+	else
+		cp $DIRECTORY/origin/origin.wav $DIRECTORY/$i
+		echo "$i:WAV" >> $DIRECTORY/origin/result.txt
+		echo $DIRECTORY/$i >> play.m3u
+	fi
+    #echo $i
+    echo $result
+done
+echo "La playlist est prète appuyer sur entrée lorsque vous étes pret"
+read ok
+vlc play.m3u
+#cp $DIRECTORY/origin/origin.mp3 $DIRECTORY/001
